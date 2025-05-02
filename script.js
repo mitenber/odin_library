@@ -1,8 +1,8 @@
 const screen = document.getElementById("shelf");
 const addBookBtn = document.getElementById("add-book-btn");
 const bookForm = document.getElementById("book-form");
-const closeForm = document.getElementById("close-form")
-const submitForm = document.getElementById("submit-book")
+const closeForm = document.getElementById("close-form");
+const submitForm = document.getElementById("submit-book");
 
 const myLibrary = [];
 
@@ -13,6 +13,7 @@ addBookToLibrary("True Believer", "Jack Carr", 497, "Read")
 
 showBooks();
 
+const removeBtns = document.querySelectorAll('.remove-btn')
 const overlay = document.createElement("div");
 overlay.className = "form-overlay";
 document.body.appendChild(overlay);
@@ -39,6 +40,15 @@ submitForm.addEventListener("click", function() {
     screen.innerHTML = "";
     showBooks();
 })
+
+screen.addEventListener('click', function(e) {
+    if (e.target.classList.contains('remove-btn')) {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        myLibrary.splice(index, 1);
+        screen.innerHTML = '';
+        showBooks();
+    }
+});
 
 function Book(name, author, length, status) {
     if (!new.target) {
@@ -77,6 +87,8 @@ function showBooks() {
 
         let removeBtn = document.createElement("button");
         removeBtn.className = 'remove-btn';
+        removeBtn.id = 'remove-btn';
+        removeBtn.textContent = "Remove"
         removeBtn.setAttribute('data-index', i);
 
         book.appendChild(removeBtn);
