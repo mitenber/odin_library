@@ -9,11 +9,13 @@ const myLibrary = [];
 addBookToLibrary("The Hobbit", "J.R.R Tolkien", 295, "Not Read");
 addBookToLibrary("Wind and Truth", "Brandon Sanderson", 1334,"Read");
 addBookToLibrary("Pyramids","Terry Pratchett", 368, "Reading" );
-addBookToLibrary("True Believer", "Jack Carr", 497, "Read")
+addBookToLibrary("True Believer", "Jack Carr", 497, "Read");
 
 showBooks();
 
-const removeBtns = document.querySelectorAll('.remove-btn')
+const removeBtns = document.querySelectorAll('.remove-btn');
+const toggleBtns = document.querySelectorAll('.toggle-btn');
+
 const overlay = document.createElement("div");
 overlay.className = "form-overlay";
 document.body.appendChild(overlay);
@@ -50,6 +52,25 @@ screen.addEventListener('click', function(e) {
     }
 });
 
+screen.addEventListener('click', function(e) {
+    if (e.target.classList.contains('toggle-btn')) {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        console.log("Before " + myLibrary[index].name + " " + myLibrary[index].status);
+        if(myLibrary[index].status == "Read") {
+            myLibrary[index].status = "Not Read";
+        }
+        else {
+            myLibrary[index].status = "Read";
+        }
+
+        console.log("After " + myLibrary[index].name + " " + myLibrary[index].status);
+
+        screen.innerHTML = '';
+        showBooks();
+
+    }
+});
+
 function Book(name, author, length, status) {
     if (!new.target) {
         throw Error("You must use 'new' operator to call the book")
@@ -62,7 +83,7 @@ function Book(name, author, length, status) {
     this.id = crypto.randomUUID();
 
     this.info = function() {
-        return name + " by " + author + ", " + length + " pages, " + status;
+        return name + " by " + author + ", " + length + " pages, " + this.status;
     }
 
 }
@@ -80,18 +101,39 @@ function showBooks() {
     for (let i = 0; i < myLibrary.length; i++) {
         console.log(myLibrary[i].info());
         console.log(myLibrary[i].id);
+
+
         let book = document.createElement("div");
         book.className = "book-container";
-        book.innerHTML = myLibrary[i].info();
+
+        //book.innerHTML = myLibrary[i].info();
         book.setAttribute('data-id', myLibrary[i].id);
+
+        let bookInfo = document.createElement("div");
+        bookInfo.className = 'book-info';
+        bookInfo.innerHTML = myLibrary[i].info();
+        book.appendChild(bookInfo);
+
+        let buttonContainer = document.createElement("div");
+        buttonContainer.className = 'button-container';
 
         let removeBtn = document.createElement("button");
         removeBtn.className = 'remove-btn';
         removeBtn.id = 'remove-btn';
         removeBtn.textContent = "Remove"
         removeBtn.setAttribute('data-index', i);
+        buttonContainer.appendChild(removeBtn);
 
-        book.appendChild(removeBtn);
+        let toggleBtn = document.createElement("button")
+        toggleBtn.className = 'toggle-btn';
+        if(myLibrary[i].status == 'Read') {
+            toggleBtn.textContent = "Mark As Unread";
+        }
+        else {toggleBtn.textContent = "Mark as Read"}
+        toggleBtn.setAttribute('data-index', i);
+        buttonContainer.appendChild(toggleBtn)
+
+        book.append(buttonContainer);
         screen.appendChild(book);
     }
 }
