@@ -7,7 +7,34 @@
     <title>Library</title>
 </head>
 <body>
+    <div class="top-bar">
+        <div id="page-title">My Library</div>
+        <button id="add-book-btn">Add Book</button>
+    </div>
     <div id="shelf" class="container"></div>
+
+    <div class="form-popup" id="book-form">
+        <form action="example.com/path" class="form-container" id="form-container">
+            <h2>Add New Book</h2>
+            <label for="book-title">Title</label>
+            <input type="text" placeholder="Enter Book Title" id="book-title" name="book_title" required>
+
+            <label for="book=author">Author</label>
+            <input type="text" placeholder="John Doe" id="book-author" name="author" required>
+
+            <label for="book-length">Length</label>
+            <input type="number" id="book-length" name="length" min="1" required>
+
+            <label for="book-status">Status</label>
+            <select name="book_status" id="book-status">
+                <option value="Read">Read</option>
+                <option value="Reading">Reading</option>
+                <option value="Not Read">Not Read</option>
+            </select>
+            <button type="button" class="btn" id="submit-book">Add</button>
+            <button type="button" class="btn cancel" id="close-form">Cancel</button>
+        </form>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
