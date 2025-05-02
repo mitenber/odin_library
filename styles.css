@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    gap: 16px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    padding: 20px;
+}
+
+.book-container {
+    display: flex;
+    width: 150px;
+    height: 150px; /* Make it square */
+    background-color: rgb(148, 191, 206);
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16); /* Add shadow for depth */
+    padding: 15px; /* Add some internal spacing */
+    margin: 5px; /* Add some external spacing */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    text-align: center; /* Center text */
+    transition: transform 0.2s ease; /* Smooth hover effect */
+    overflow: hidden; /* Keep text inside */
+    word-wrap: break-word; /* Prevent text overflow */
+}
+
+.book-container:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
